@@ -24,6 +24,42 @@ class LinkedList {
     this.length++;
   }
 
+  insert(index, value) {
+    if (Number(index) === NaN) throw new Error("index must be Number");
+    if (index === 0) {
+      return this.prepend(value);
+    }
+
+    const leader = this._traversalToIndex(index - 1);
+
+    const follower = leader.next;
+
+    const newNode = new NewNode(value);
+
+    newNode.next = follower;
+
+    leader.next = newNode;
+  }
+
+  _traversalToIndex(index) {
+    let targetNode = this.head;
+    for (let currentIndex = 0; currentIndex < index; currentIndex++) {
+      targetNode = targetNode.next;
+    }
+    return targetNode;
+  }
+
+  printLink() {
+    const arr = [];
+    let currentNode = this.head;
+    arr.push(currentNode.value);
+    while (!!currentNode.next) {
+      currentNode = currentNode.next;
+      arr.push(currentNode.value);
+    }
+    return arr;
+  }
+
   append(value) {
     const newNode = {
       value,
@@ -33,6 +69,7 @@ class LinkedList {
     this.tail = newNode;
     this.length++;
   }
+
 }
 
 const test = new LinkedList(10);
@@ -41,7 +78,7 @@ test.append(5);
 test.append(15);
 
 test.prepend(25);
-test.prepend(30);
 
-console.log(test);
-console.log(test.head.next.next);
+test.insert(2, 88);
+
+console.log(test.printLink());
