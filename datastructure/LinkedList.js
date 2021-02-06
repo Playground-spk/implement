@@ -70,6 +70,16 @@ class LinkedList {
     this.length++;
   }
 
+  reverse() {
+    let newHead = this.head.next;
+    this.head.next = null;
+    while (newHead !== null) {
+      let oldHead = this.head;
+      this.head = newHead;
+      newHead = this.head.next;
+      this.head.next = oldHead;
+    }
+  }
 }
 
 const test = new LinkedList(10);
@@ -81,4 +91,7 @@ test.prepend(25);
 
 test.insert(2, 88);
 
+console.log(test.printLink());
+
+test.reverse();
 console.log(test.printLink());
